@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AddNoteHeader extends StatelessWidget {
-  const AddNoteHeader({
+class NoteHeader extends StatelessWidget {
+  final String title;
+  const NoteHeader({
     super.key,
+    required this.title,
   });
 
   @override
@@ -13,7 +15,7 @@ class AddNoteHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Add Note',
+            title,
             style: Theme.of(context).textTheme.displayLarge,
           ),
           IconButton(

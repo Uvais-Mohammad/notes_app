@@ -3,11 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:notes_app/features/notes/logic/notes_provider.dart';
-import 'package:notes_app/features/notes/logic/select_note_provider.dart';
-import 'package:notes_app/features/notes/models/note_model.dart';
-import 'package:notes_app/features/notes/repository/notes_repository.dart';
-import 'package:notes_app/features/notes/screens/widgets/add_note_sheet.dart';
+import 'package:notes_app/features/notes/index.dart';
 import 'package:notes_app/shared/services/connection_service/connection_service.dart';
 
 class NotesScreen extends ConsumerStatefulWidget {
@@ -108,6 +104,16 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                       onLongPress: () {
                         ref.read(selectNoteProvider.notifier).select(note);
                       },
+                      onTap: () {
+                        ref
+                            .read(addNoteColorProvider.notifier)
+                            .changeColor(note.color);
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (_) => NoteSheet(note: note),
+                          isScrollControlled: true,
+                        );
+                      },
                       title: Text(
                         note.title,
                         style: Theme.of(context).textTheme.displayLarge,
@@ -158,7 +164,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
           onPressed: () async {
             showModalBottomSheet(
               context: context,
-              builder: (_) => const AddNoteSheet(),
+              builder: (_) => const NoteSheet(),
               isScrollControlled: true,
             );
           },

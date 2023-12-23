@@ -13,8 +13,8 @@ class ColorTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Color selectedColor = ref.watch(addNoteColorProvider);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+    return Card(
+      elevation: 2,
       child: InkWell(
         onTap: () {
           ref.read(addNoteColorProvider.notifier).changeColor(color);
@@ -30,7 +30,7 @@ class ColorTile extends ConsumerWidget {
               width: 50,
               height: 50,
             ),
-            if (selectedColor == color)
+            if (selectedColor.value == color.value)
               const Positioned(
                 child: Icon(
                   Icons.check,
