@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:intl/intl.dart';
 import 'package:notes_app/features/notes/index.dart';
+import 'package:notes_app/features/notes/screens/widgets/todo_card.dart';
 import 'package:notes_app/shared/services/connection_service/connection_service.dart';
 
 class NotesScreen extends ConsumerStatefulWidget {
@@ -27,52 +27,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
   Widget build(BuildContext context) {
     AsyncValue<List<Note>> notes = ref.watch(notesProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: ref.watch(selectNoteProvider) == null
-            ? const Text('📝 Notes')
-            : AnimatedScale(
-                scale: ref.watch(selectNoteProvider) == null ? 0 : 1,
-                duration: const Duration(milliseconds: 200),
-                child: IconButton(
-                  onPressed: () {
-                    ref.read(selectNoteProvider.notifier).unselect();
-                  },
-                  icon: const Icon(
-                    Icons.close,
-                    size: 30,
-                  ),
-                ),
-              ),
-        actions: [
-          AnimatedScale(
-            scale: ref.watch(selectNoteProvider) == null ? 0 : 1,
-            duration: const Duration(milliseconds: 200),
-            child: IconButton(
-              onPressed: () {
-                ref
-                    .read(notesProvider.notifier)
-                    .delete(ref.read(selectNoteProvider)!);
-                ref.read(selectNoteProvider.notifier).unselect();
-              },
-              icon: const Icon(
-                Icons.delete_outline_outlined,
-                size: 30,
-              ),
-            ),
-          ),
-          AnimatedScale(
-            scale: ref.watch(selectNoteProvider) == null ? 0 : 1,
-            duration: const Duration(milliseconds: 200),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.edit,
-                size: 30,
-              ),
-            ),
-          ),
-        ],
-      ),
+      appBar: const CustomAppBar(),
       body: notes.when(
         data: (notes) {
           if (notes.isEmpty) {
@@ -88,71 +43,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
             ),
             itemBuilder: (context, index) {
               final Note note = notes[index];
-              return Dismissible(
-                key: Key(note.id.toString()),
-                onDismissed: (direction) async {
-                  await ref.read(notesProvider.notifier).delete(note);
-                },
-                background: Container(
-                  color: Colors.white,
-                  child: const Icon(Icons.delete),
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    ListTile(
-                      onLongPress: () {
-                        ref.read(selectNoteProvider.notifier).select(note);
-                      },
-                      onTap: () {
-                        ref
-                            .read(addNoteColorProvider.notifier)
-                            .changeColor(note.color);
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (_) => NoteSheet(note: note),
-                          isScrollControlled: true,
-                        );
-                      },
-                      title: Text(
-                        note.title,
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                      tileColor: note.color,
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            note.content,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            DateFormat.yMd().format(note.updatedAt),
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (ref.watch(selectNoteProvider) == note)
-                      Positioned.fill(
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              );
+              return TodoCard(note: note);
             },
           );
         },
