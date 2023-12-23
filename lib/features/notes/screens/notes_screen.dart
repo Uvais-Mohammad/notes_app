@@ -31,7 +31,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
       body: notes.when(
         data: (notes) {
           if (notes.isEmpty) {
-            return const Center(child: Text('No notes found'));
+            return const EmptyNotes();
           }
           return MasonryGridView.builder(
             mainAxisSpacing: 4,

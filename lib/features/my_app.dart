@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/features/notes/screens/notes_screen.dart';
 import 'package:notes_app/features/splash/screens/splash_screen.dart';
 import 'package:notes_app/shared/themes/light_theme.dart';
 
