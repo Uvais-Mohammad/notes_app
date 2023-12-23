@@ -6,7 +6,7 @@ export 'package:notes_app/features/notes/screens/widgets/form_buttons.dart';
 export 'package:notes_app/features/notes/screens/widgets/content_field.dart';
 export 'package:notes_app/features/notes/screens/widgets/title_field.dart';
 export 'package:notes_app/features/notes/screens/widgets/color_picker.dart';
-
+export 'package:notes_app/features/notes/screens/widgets/custom_appbar.dart';
 // provider exports
 export 'package:notes_app/features/notes/logic/add_note_color_provider.dart';
 export 'package:notes_app/features/notes/logic/notes_provider.dart';
