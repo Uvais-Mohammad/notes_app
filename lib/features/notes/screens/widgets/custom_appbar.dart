@@ -42,17 +42,6 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
             ),
           ),
         ),
-        AnimatedScale(
-          scale: ref.watch(selectNoteProvider) == null ? 0 : 1,
-          duration: const Duration(milliseconds: 200),
-          child: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.edit,
-              size: 30,
-            ),
-          ),
-        ),
       ],
     );
   }
