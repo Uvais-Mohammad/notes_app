@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_app/features/notes/index.dart';
 
-class FormButtons extends StatelessWidget {
+class FormButtons extends ConsumerWidget {
   const FormButtons({
     super.key,
     required GlobalKey<FormState> formKey,
-    required this.ref,
     required TextEditingController titleController,
     required TextEditingController contentController,
   })  : _formKey = formKey,
@@ -14,12 +13,11 @@ class FormButtons extends StatelessWidget {
         _contentController = contentController;
 
   final GlobalKey<FormState> _formKey;
-  final WidgetRef ref;
   final TextEditingController _titleController;
   final TextEditingController _contentController;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: Row(

@@ -42,7 +42,6 @@ class _AddNoteSheetState extends ConsumerState<AddNoteSheet> {
             const ColorPicker(),
             FormButtons(
               formKey: _formKey,
-              ref: ref,
               titleController: _titleController,
               contentController: _contentController,
             ),
@@ -52,9 +51,3 @@ class _AddNoteSheetState extends ConsumerState<AddNoteSheet> {
     );
   }
 }
-
-
-
-
-
-

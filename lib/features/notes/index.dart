@@ -10,7 +10,7 @@ export 'package:notes_app/features/notes/screens/widgets/color_picker.dart';
 // provider exports
 export 'package:notes_app/features/notes/logic/add_note_color_provider.dart';
 export 'package:notes_app/features/notes/logic/notes_provider.dart';
-
+export 'package:notes_app/features/notes/logic/select_note_provider.dart';
 // model exports
 export 'package:notes_app/features/notes/models/note_model.dart';
 

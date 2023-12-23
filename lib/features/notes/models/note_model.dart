@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-final class Note  {
+final class Note {
   final int? id;
   final String title;
   final String content;
@@ -9,8 +9,8 @@ final class Note  {
   final DateTime updatedAt;
   final bool isSynced;
   final bool isTrashed;
-  Note({
-     this.id,
+  const Note({
+    this.id,
     required this.title,
     required this.content,
     required this.createdAt,
